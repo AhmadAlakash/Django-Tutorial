@@ -332,6 +332,298 @@ def product_detail(request):
   {% endblock content %}
   ```
 
+- like this we will this change to the relay  name how can we this ? 
+
+  <img src="C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-16.png" alt="2022-10-16" style="zoom:200%;" />
+
+with add this function to models  :
+
+```python
+from distutils.command.upload import upload
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000)
+    price = models.DecimalField(max_digits =6,decimal_places = 2)
+    # upload_to = 'photos/%y%m/%d' to make folder with 3 places to year & month & day
+    image =models.ImageField(upload_to = 'photos/%y/%m/%d')
+    active = models.BooleanField(default=False)
+	def __str__(self):
+		return self.name or waht we will
+```
+
+---------------------------
+
+to change the name in the admin panel  like this :
+
+![1d](E:\1d.png)
+
+we add class meta to the mother class :
+
+```python
+from distutils.command.upload import upload
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000)
+    price = models.DecimalField(max_digits =6,decimal_places = 2)
+    # upload_to = 'photos/%y%m/%d' to make folder with 3 places to year & month & day
+    image =models.ImageField(upload_to = 'photos/%y/%m/%d')
+    active = models.BooleanField(default=False)
+	def __str__(self):
+		return self.name or waht we will
+	class Meta :
+		verbose_name='bl bla bla '
+```
+
+<img src="C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-16 (2).png" alt="2022-10-16 (2)" style="zoom:200%;" />
+
+--------------
+
+what can i to order the products ex : names ,  price ,content or with values (-) : -name , - price , -content any things :
+
+with this class :
+
+```python
+from distutils.command.upload import upload
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000)
+    price = models.DecimalField(max_digits =6,decimal_places = 2)
+    # upload_to = 'photos/%y%m/%d' to make folder with 3 places to year & month & day
+    image =models.ImageField(upload_to = 'photos/%y/%m/%d')
+    active = models.BooleanField(default=False)
+	def __str__(self):
+		return self.name or waht we will
+	class Meta :
+        ordering=['name'] or ['price'] or ['-price']
+		
+```
+
+--------------------------------
+
+add default value for any fields in the ex models :
+
+
+
+```python
+from distutils.command.upload import upload
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000,default ='last time')
+    price = models.DecimalField(max_digits =6,decimal_places = 2 default =10.5)
+        image =models.ImageField(upload_to = 'photos/%y/%m/%d',default = '')# here need to add the path for image
+
+		
+```
+
+--------------------
+
+## null = True , blank = True
+
+when user  will not image  or content or any fields to adding most we this by null = True , blank = True to make the filed not required  , like this :
+
+```python
+from distutils.command.upload import upload
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000,null = True, blank = True)
+    price = models.DecimalField(max_digits =6,decimal_places = 2null = True, blank = True)
+        image =models.ImageField(upload_to = 'photos/%y/%m/%d',null = True, blank = True)# here need to add the path for image
+
+		
+```
+
+
+
+----------------
+
+to change  the names in the admin panel but not in the models we add verbose_name to the filed that we need change  ex : 
+
+```python
+class product(models.Model):
+    name = models.CharField(max_length=50 , verbose_name ='title')
+    content = models.TextField(max_length = 10000,null = True, blank = True)
+```
+
+----------------------
+
+to  add category to the models for the products : 
+
+ex : 
+
+```python
+from distutils.command.upload import upload
+
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+	x = ('Phone','Phone'),('Computer','Computer')
+    # here we add this one to admin panel and the another to the database
+	category = models.CharField(max_length=50,choices = x ) # here most add the tuple or variable to work here make we variable x and add to choices to make dropdown
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000,null = True, blank = True)
+    price = models.DecimalField(max_digits =6,decimal_places = 2null = True, blank = True)
+        image =models.ImageField(upload_to = 'photos/%y/%m/%d',null = True, blank = True)# here need to add the path for image
+
+		
+```
+
+## not forget the makemigratioms and migrate  in the command line to display what we new have in the models 
+
+-----------------------------
+
+we have more fields  and here learn about some of them 
+
+## !!! not forget the edit in the admin file and in command line to see what we have new in models and in admin 
+
+```python
+class test (models-Model):
+	date = models-DateField() # to date  
+	Time = modles.TimeField(null=True) to time 
+	Created_at = Modles.DateTime(null=True) to date and time 
+```
+
+--------------------
+
+when we will the time and date now ex with user will account create or sign in in one from apps media any things !!!! 
+
+for this we have more library's and here use  one example  : 
+
+```python
+from datetime import datetime # for date and time >> we can use .now to make live time 
+
+from django.db import models
+
+# Create your models here.
+
+
+class product(models.Model):
+	x = ('Phone','Phone'),('Computer','Computer')
+    # here we add this one to admin panel and the another to the database
+	category = models.CharField(max_length=50,choices = x ) # here most add the tuple or variable to work here make we variable x and add to choices to make dropdown
+    name = models.CharField(max_length=50)
+    content = models.TextField(max_length = 10000,null = True, blank = True)
+    price = models.DecimalField(max_digits =6,decimal_places = 2null = True, blank = True)
+        image =models.ImageField(upload_to = 'photos/%y/%m/%d',null = True, blank = True)# here need to add the path for image
+    created_at = models.DateTime(default = datetime.now   ) # here have we 
+
+		
+```
+
+----------------------------------
+
+# !!!!     Relation ships between Tables !!!!!!!!!!! 
+
+### very important : 
+
+## all example virtual in the models,py  file
+
+not forget the edit in the admin file to display  the new items in the app or what have you in the models.py new 
+
+###  1- one to one :
+
+```python
+from django.db import models
+# relations 
+#- one to one 
+class famale(models.Model):
+	name = models.CharFiled(may_length=50)
+	
+	
+	
+class male (models.Model):
+name = models.CharFiled(max_length=50)
+girls = models.OneToOneFiled(female,on_delete =models.CASCADE)# CASCADE to delete all 				 PROTECT to delete just what here not the item in the relation
+
+    # not forget command line and admin.py
+										
+        
+```
+
+## One To Many :
+
+this example of the relation with one to many 
+
+```python
+from django.db import models
+# relations 
+#- one to many 
+class product(models.Model):
+	name = models.CharFiled(may_length=50)
+	
+	
+	
+class user (models.Model):
+	name = models.CharFiled(max_length=50)
+	product= models.ForeignKey(product,on_delete=models.CASCADE)						
+        
+```
+
+------------------
+
+## Many To Many :
+
+this example of the relation many to many :#
+
+```python
+from django.db import models
+# relations 
+#- many to many 
+class video(models.Model):
+	name = models.CharFiled(may_length=50,video,null=True)
+	
+	
+	
+class user1 (models.Model):
+	name = models.CharFiled(max_length=50,video,null=True)
+	product= models.ManyTOMany(video,null=True)						
+        
+```
+
+
+
+
+
+
+
+test the last edit and we with by 26 
   
 
-# last 10 min from 21
