@@ -625,5 +625,218 @@ class user1 (models.Model):
 
 
 test the last edit and we with by 26 
+
+---------------------
+
+## 26 Django tutorial | how display products for the users from database | query set by get and filter and all :
+
+### important !!!!! :
+
+ now i will display the info  that in the database   in one table ex .product 
+
+- import the class from model in the views.py to use this in the views 
+
+- go to the function that need display in the templet 
+
+- add context to the function  ex :
+
+  ```python
+  from django.shortcuts import render
+  from . models import product
+  
+  # Create your views here.
+  
+  
+  def product_list(request): #{ key can any things,  value  , objict is the product   and all to display all products }
+      return render(request, 'products/product_list.html', {'product_list': product.objects.all()})
+  dont forget we can add the value to variable and can we that easy using 
+      
+  
+  
+  def product_detail(request):
+      return render(request, 'products/product_detail.html')
+  
+  ```
+
+  then we go to the template and add loop ,we  most that make : 
+
+  ```python
+  {% extends "base.html" %}
+  
+  
+  
+  
+  {% block content %}
+  {% for x in product_list %}
+  	<p>{{x.name}}</p>
+  	
+  	<p>{{x.content}}</p>
+  	
+  	<p>{{x.price}}</p>
+  	<hr>
+  {% endfor  %}
+  
+  
+  {% endblock content %}
+  ```
+
+  
+
+when i will just  one object display  i give the value get instead of all   ex :
+
+```python
+from django.shortcuts import render
+from . models import product
+
+# Create your views here.
+
+
+def product_list(request):
+    return render(request, 'products/product_list.html', {'product_list': product.objects.get()})# get take value :any value ex name, id , content 
+    
+
+
+def product_detail(request):
+    return render(request, 'products/product_detail.html')
+
+```
+
+then go to the template and use the idea variables  in the dtl  ex :
+
+```python
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+<p>
+{{product_list}}# when i display any thisngsfrom the object name, pirce ,content  {{product_list.name or .price }}
+</p>
+
+{% endblock content %}
+```
+
+------------------
+
+when i will not one and not all but i will filter the object what i can do it :
+
+ex : 
+
+```python
+from django.shortcuts import render
+from . models import product
+
+# Create your views here.
+# i will here not one and not all  i will filter how i will d
+
+def product_list(request): 
+    return render(request, 'products/product_list.html', {'product_list': product.objects.all( )filter()}) #-we have more method to do this 
+# not foget that filter most with him loop make 
+
+    
+
+
+def product_detail(request):
+    return render(request, 'products/product_detail.html')
+
+```
+
+----------------------------
+
+## Django tutorial |  | query set exclude and order by and count objects :
+
+ex : order 
+
+```python
+from django.shortcuts import render
+from . models import product
+
+# Create your views here.
+
+
+def product_list(request):
+    return render(request, 'products/product_list.html', {'product_list': product.objects.all().order_by('-price')})
+#{'product_list': product.objects.all().order_by('name')})
+# {'product_list': product.objects.all().order_by('content')})    
+
+
+def product_detail(request):
+    return render(request, 'products/product_detail.html')
+
+```
+
+
+
+ex : count 
+
+here find we important  notice 
+
+```python
+from django.shortcuts import render
+from . models import product
+
+# Create your views here.
+
+
+def product_list(request):
+    return render(request, 'products/product_list.html', {'product_list': product.objects.all().count()}) # but we comme erorr because the result is integer and we need this to string 
+#{'product_list':str( product.objects.all().count())})
+    
+
+
+def product_detail(request):
+    return render(request, 'products/product_detail.html')
+
+```
+
+
+
+ex :  exclude (الاستثناء)  display all exclude ()
+
+```python
+from unicodedata import category
+from django.shortcuts import render
+from . models import product
+
+# Create your views here.
+
+
+def product_list(request):
+    return render(request, 'products/product_list.html', {'product_list': (product.objects.all().exclude(category='Phone'))})
+    
+
+
+def product_detail(request):
+    return render(request, 'products/product_detail.html')
+
+```
+
+not forget this method need to loop of the objects like this in the template 
+
+```django
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+{% for x in product_list %}
+	<p>{{x.name}}</p>
+	
+	<p>{{x.content}}</p>
+	
+	<p>{{x.price}}</p>
+	<hr>
+	
+{% endfor  %}
+
+
+{% endblock content %}
+```
+
+-------------------
+
+with 28
   
 
