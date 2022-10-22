@@ -793,8 +793,7 @@ def product_detail(request):
 
 
 ex :  exclude (الاستثناء)  display all exclude ()
-
-```python
+python
 from unicodedata import category
 from django.shortcuts import render
 from . models import product
@@ -810,11 +809,11 @@ def product_list(request):
 def product_detail(request):
     return render(request, 'products/product_detail.html')
 
-```
+
 
 not forget this method need to loop of the objects like this in the template 
 
-```django
+django
 {% extends "base.html" %}
 
 
@@ -833,10 +832,74 @@ not forget this method need to loop of the objects like this in the template
 
 
 {% endblock content %}
-```
+
 
 -------------------
 
 with 28
+## rest  from filter type :
+
+```python
+from unicodedata import category
+from django.shortcuts import render
+from . models import product
+
+# Create your views here.
+
+
+def product_list(request):
+    products_list= product.object.all()
+   	x = {'pro':pro.filter(name__exact= 10 'or oppo or any value' )}# you can price or any things write
+     x = {'pro':pro.filter(name__contains ='a' or 'p')} # to display products thats contain (waht we need )
+       x = {'pro':pro.filter(price__in [10,500]  )}# ex i will search of ( just 10,just 500) in has []
+             x = {'pro':pro.filter(price__range[10,500])} # range between 10,500
+    return render(request, 'products/product_list.html', x)
+
+def product_detail(request):
+    return render(request, 'products/product_detail.html')
+
+```
+
+
+
+--------------------------
+
+# to display the images in the template  need to add the static and media roots and that in the settings.py and urls.py :
+
+## settings.py :
+
+```
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /  'media/'
+```
+
+## in urls.py : import settings and static  then give we if  like this :
+
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/' , include('accounts.urls',namespace='accounts')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('products/' , include('products.urls',namespace='products')),
+    path('blog/' , include('blog.urls',namespace='blog')),
+    path('summernote/', include('django_summernote.urls')),
+]
+
+
+if settings.DEBUG:
+    urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+
   
 
