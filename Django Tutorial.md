@@ -900,6 +900,113 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
+## Form >> create form log in form a_to_z :
+
+we 3 methods to make form :
+
+method (1):
+
+to write  form  need to :
+
+- template  : here write form tag 
+- modles.py : create database to take the data from template that's from form coming
+- views.py : to take this data from template to database need to active this in the views 
+
+--------------------
+
+template : 
+
+```html
+{% extends "base.html" %}
+{% block content %}
+<span><a href="{% url 'index' %}">Home</a></span>
+<span><a href="{% url 'about' %}">About</a></span>
+{% comment %}
+
+{% endcomment %}
+<br>
+
+<form action="" method="get">
+    <!--to data not important or did not  need security-->
+    <input type="text" name="userwname" placeholder="username">
+    <br>
+    <input type="password" name="password" placeholder="password">
+    <br>
+    <input type="submit" value="save">
+
+    {% comment %}
+    this all inputs with python as dict {key:value} that's mean that data that user sent came to data base through key=name:value='ahmad or any data '
+    this came to know where is this data came  
+    {% endcomment %}
+
+</form>
+
+
+<form action="" method="post">
+    <!--to importantly data or data need  security-->
+</form>
+
+{% endblock content %}
+```
+
+----------------------
+
+with get like this how came the data :
+
+![2022-10-23](C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-23.png)
+
+with post  can not show any data and need  debug close  : (CSRF ) 
+
+![2022-10-23 (1)](C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-23 (1).png)
+
+template code :
+
+![2022-10-23 (2)](C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-23 (2).png)
+
+-------------------------
+
+models.py: not forget makemigrations and migrate in the command line and in admin.py 
+
+```python
+from unittest.util import _MAX_LENGTH
+from django.db import models
+
+# Create your models here.
+
+
+class login(models.Model):
+    username= models.CharField(max_length=50)
+    password= models.CharField(max_length=50)
+```
+
+--------------
+
+views.py :  important to know that all data that from user came   go to the request !!!!!!
+
+```python
+from django.shortcuts import render
+
+
+# Create your views here.
+
+
+def index(request):
+    return render(request, 'pages/index.html')
+
+
+def about(request):
+    username = request.POST.get('username')# request is the came data, POST is the method in the form , get is to get data from dict{}
+    password = request.POST.get('password') 
+    #now i have the username and the password and i will they to database send  -1 need to import the models class in views 
+    
+    
+    
+    return render(request, 'pages/about.html')
+
+```
+
+last 5 min'
+
 
   
 
