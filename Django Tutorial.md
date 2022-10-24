@@ -985,6 +985,7 @@ views.py :  important to know that all data that from user came   go to the requ
 
 ```python
 from django.shortcuts import render
+from . models import login
 
 
 # Create your views here.
@@ -998,15 +999,41 @@ def about(request):
     username = request.POST.get('username')# request is the came data, POST is the method in the form , get is to get data from dict{}
     password = request.POST.get('password') 
     #now i have the username and the password and i will they to database send  -1 need to import the models class in views 
+    #to save data that from user cooming :
+   data = login(username=username,password=password)
+   data.save 
     
     
     
     return render(request, 'pages/about.html')
-
+# we most add the function save to save data that from user comming
 ```
 
-last 5 min'
+----------------
+
+with the function save to save data that from user coming in the database 
+
+```python
+
+from django.shortcuts import render
+from . models import login
 
 
-  
+# Create your views here.
+
+
+def index(request):
+    return render(request, 'pages/index.html')
+
+
+def about(request):
+    username= request.POST.get('username')
+    password= request.POST.get('password')
+    data = login (username=username,password=password)
+    data.save()
+   
+
+    return render(request, 'pages/about.html')
+w
+```
 
