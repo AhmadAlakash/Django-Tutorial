@@ -1120,3 +1120,102 @@ and how we see this error came because we have the save function and most with s
 
 
 
+
+##  Edit the forms  :
+
+to change the name from our fields we add tag (label=' . !') 
+
+```python
+# in the forms.py files
+# to change lable fileds can we that with tag lable like this :
+
+from django import forms
+
+
+class loginform(forms.Form):
+    username = forms.CharField(max_length=50, lable='user')
+    password = forms.CharField(max_length=50)
+
+
+
+```
+
+to make placeholder add tag (initial='enter your pass') :  initial = مبدئي
+
+```python
+# in the forms.py files
+#to make placeholder add tag (initial='enter your pass') : 
+
+from django import forms
+
+
+class loginform(forms.Form):
+    username = forms.CharField(max_length=50, initial='enter user name')
+    password = forms.CharField(max_length=50)
+
+
+```
+
+to disabled any fields with tag (  disabled=True ) :
+
+```python
+# in the forms.py files
+#to disabled any fields with tag disabled=True 
+
+from django import forms
+
+
+class loginform(forms.Form):
+    username = forms.CharField(max_length=50, disabled=True) # the defualt from him is False 
+    password = forms.CharField(max_length=50)
+
+
+```
+
+
+
+to add text  for help users with tag (help_text ='enter your pass') :
+
+```python
+# in the forms.py files
+#to add text  for help users with tag (help_text ='enter your pass') :
+
+from django import forms
+
+
+class loginform(forms.Form):
+    username = forms.CharField(max_length=50 ) 
+    password = forms.CharField(max_length=50,help_text ='enter your pass')
+
+```
+
+to  hidden   pass or to change the type field with tag (widget = forms.PasswordInput) : this tag has more for using  and we learn about that  later 
+
+```python
+# in the forms.py files
+#to  hidden   pass or to change the type field with tag (widget = forms.PasswordInput) :
+
+from django import forms
+
+
+class loginform(forms.Form):
+    username = forms.CharField(max_length=50 ) 
+    password = forms.CharField(max_length=50,widget=forms.PasswordInput)
+```
+
+to make required   field and most not the user  complete  him with tag (required=True ): when false than is most complete  
+
+```python
+from django import forms
+
+
+class loginform(forms.Form):
+    username = forms.CharField(max_length=50,)
+    password = forms.CharField(max_length=50,required=True )
+
+```
+
+
+
+
+
