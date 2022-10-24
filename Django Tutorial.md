@@ -1037,3 +1037,86 @@ def about(request):
 w
 ```
 
+# method (2): create form :
+
+ with this method  we create forms.py file  like this :  how we know that's django is  built on library  in any file any apps show that 
+
+the file forms is similar the models file  the difference just name the library  
+
+- in the app  create file (form.py) 
+
+```python
+# in file forms.py
+from django import forms
+
+class loginform(forms.Form):
+	username=forms.CharFiled(max_length=50)
+    password = forms.CharFiled(max_length=50)
+    
+```
+
+-  in views : we call the forms file in the views.py and we add context to display the  login fields in the template   and that in the function that render the site 
+
+```python
+# views.py 
+
+
+from django.shortcuts import render
+from . models import login
+from . forms import loginform
+
+
+# Create your views here.
+
+
+def index(request):
+    return render(request, 'pages/index.html')
+
+
+def about(request):
+    username= request.POST.get('username')
+    password= request.POST.get('password')
+    data = login (username=username,password=password)
+    data.save()
+   
+
+    return render(request, 'pages/about.html', {'lf':loginform})
+
+
+```
+
+in the template : 
+
+```python
+{% extends "base.html" %}
+{% block content %}
+<span><a href="{% url 'index' %}">Home</a></span>
+<span><a href="{% url 'about' %}">About</a></span>
+{% comment %}
+
+{% endcomment %}
+<br>
+
+
+
+
+<form action="" method="post">
+    <!--here need to close debug (CSRF) {% csrf_token %}-->
+    {% csrf_token %}
+    <!--to importantly data or data need  security-->
+    {{lf}} # here write we the key that in the context we have in the render in wie return 
+ 
+    <input type="submit" value="save">
+</form>
+
+{% endblock content %}+
+```
+
+
+
+and how we see this error came because we have the save function and most with she any info send  we learn more about this situation  !!!!!!  >>>>>> :
+
+![2022-10-24 (1)](C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-24 (1).png)
+
+
+
