@@ -1219,3 +1219,96 @@ class loginform(forms.Form):
 
 
 
+
+## Method 3 for create form :   New Style for create Form 
+
+## it is very importantly :
+
+##  remember : 
+
+##  ( if data.is_valid():  
+
+##       data.save())                                 
+
+---------------------
+
+when will create form we take the data from models.py and make from this data 
+
+our class in the forms.py like this :
+
+```python
+# in forms.py 
+
+from django import forms
+
+
+from .models import login    # here import  our class from models.py
+
+
+class loginform(forms.ModelForm):  # here import ModelForm from forms 
+  #  username = forms.CharField(max_length=50,) we dont need this 
+   # password = forms.CharField(max_length=50,required=False) we dont need this
+    #new style : with class meta  what i will now ? i will bring the data from models !!!! ------- 
+    class Meta:
+        model= login
+        fields='__all__' # when will all fields 
+        fiels = ['username','password','token',]# when i will just one , two or any things 
+
+```
+
+--------------------
+
+## in the views.py : like this : 
+
+ new style :
+
+```python
+# new style in the views.py 
+m django.shortcuts import render
+
+from . models import login
+from .forms import loginform
+
+
+
+
+# Create your views here.
+
+
+def index(request):
+    return render(request, 'pages/index.html')
+
+
+def about(request):
+   # style 1
+   loginform(request.POST).save()  
+# style 2
+   dataform = loginform(request.POST).save()
+   datafrom.save()
+   
+
+   
+
+
+
+
+   # username= request.POST.get('username')
+   # password= request.POST.get('password')
+   # data = login (username=username,password=password)
+   # data.save()
+
+
+    return render(request, 'pages/about.html', {'lf':loginform})
+
+```
+
+
+
+
+
+wiederholen !!!!! 33 !!!!! test test 
+
+
+
+
+
