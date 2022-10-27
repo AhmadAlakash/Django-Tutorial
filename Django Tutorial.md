@@ -1348,6 +1348,66 @@ def about(request):
 ```
 
 
+# Customise the Django admin:
+
+to change the site admin name ( old name is django administration) 
+
+- go to the admin.py in any app 
+
+- add this code :
+
+  ```python
+  admin.site.site_header='ALAKASH'
+  ```
+
+to change the title the web page :
+
+-  in admin.py in any app 
+
+- add this code :
+
+  ```python
+  admin.site.site_title='ALAKASH'
+  ```
+
+  
+
+----------------------------
+
+# Customise the Django admin: 
+
+change our themes in our administration  :
+
+with this link can we install our django suit themes : in this link find  we how  install him and what we need to that 
+
+(https://django-suit.readthedocs.io/en/v2/install.html) 
+
+![2022-10-27 (2)](C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-27 (2).png)
+
+to use this  :
+
+- go to any app 
+
+- add this class and this library  :
+
+  ```python
+  from suit.apps import DjangoSuitConfig
+  
+  class SuitConfig(DjangoSuitConfig):
+      layout = 'horizontal'
+  ```
+
+  
+
+we have more values for the layout like : 'horizontal','vertical',''  ..... search 
+
+
+
+
+
+
+
+
 
 
 
