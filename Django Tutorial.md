@@ -1302,11 +1302,50 @@ def about(request):
 
 ```
 
+##  security  and validated for the user data and database :
+
+this code has problem and  from our .save()  : like the second image 
+
+```
+def index(request):
+    return render(request, 'pages/index.html')
+
+
+def about(request):
+   # style 1
+   loginform(request.POST).save()  
+# style 2
+   dataform = loginform(request.POST).save()
+   datafrom.save()
+   
+```
+
+![2022-10-27](C:\Users\49157\OneDrive\الصور\Screenshots\2022-10-27.png)
+
+this problem came  from save() and we have another problem and the is the validate maybe  any user send us data but not validation  like this with this code can this situations not come  : 
+
+here this code say when this data validate = send when not =  don't'  send  and with this user most validate data send 
+
+```python
+def about(request):
+    if request.method=='POST':
+   		loginform (request.POST).save()
+        # to save validate data  most condition :
+        # dataform=loginform (request.POST) our data in varible
+       	# if dataform.is_valid: like if the data is valid 
+        #	dataform.save() when valid >>save 
+
+
+     
 
 
 
 
-wiederholen !!!!! 33 !!!!! test test 
+   return render(request, 'pages/about.html', {'lf': loginform})
+
+
+
+```
 
 
 
