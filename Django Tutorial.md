@@ -1399,7 +1399,36 @@ to use this  :
 
   
 
-we have more values for the layout like : 'horizontal','vertical',''  ..... search 
+we have more values for the layout like : 'horizontal','vertical',''  ..... search
+
+
+
+
+------------
+
+
+
+## change the themes in the admin panel : 
+
+New  theme : (Grappelli )
+
+- install this in command line with this  code : ' pip install django-grappelli '
+
+- with settings.py to installed app add this : 'grappelli' 
+- add URL in the URLs from the project ' path('grappelli',include('grappelli.url'))'
+
+-----------------
+
+
+
+
+
+
+
+
+
+
+
 
 
 
