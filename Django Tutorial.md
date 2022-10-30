@@ -1420,6 +1420,107 @@ New  theme : (Grappelli )
 -----------------
 
 
+# Customise the Django admin: 
+
+ this changes is in the admin panel  :
+
+add new class  in the admin.py 
+
+from django.contrib import admin
+from .models import product
+
+Register your models here.
+
+calss product_admin(admin.ModelAdmin) # this class take from our library  'from django.contrib import admin' 
+
+# to display our price or what i will like this :
+
+```python
+from django.contrib import admin
+from .models import product
+
+# Register your models here.
+calss product_admin(admin.ModelAdmin) # this class take from our library  'from django.contrib import admin' 
+# to display our price or what i will like this :
+	list_display = ['name','price','category',]  # not  forget register  this class 
+
+
+	
+
+admin.site.register(product,product_admin)
+ 
+
+
+```
+
+​	to make  our ex 'price in the admin panel as link or any what we will ':
+
+```python
+from django.contrib import admin
+from .models import product
+
+# Register your models here.
+calss product_admin(admin.ModelAdmin) 
+	list_display = ['name','price','category',]  
+    list_display_links = ['name','price','category']
+
+
+	
+
+admin.site.register(product,product_admin)
+ 
+```
+
+
+
+--------------
+
+to edit any product ex but from outside  not inside  : this in the admin.py 
+
+### when will edit any element most not in the display _link found 
+
+```python
+list_display_links = ['name','price','category]
+list_editable = ['active']
+
+
+```
+
+--------------
+
+to make search bar in the admin panel : 
+
+```python
+list_display_links = ['name','price','category]
+list_editable = ['active']
+search_fields['price','name','category'] # during what search 
+
+```
+
+--------------
+
+to add filter to display what i will and what i will not : 
+
+```py
+list_display_links = ['name','price','category]
+list_editable = ['active']
+search_fields['price','name','category'] # during what search 
+list_filter=['price','category']
+```
+
+--------
+
+to display  just what i will from objects fields : 
+
+```
+list_display_links = ['name','price','category]
+list_editable = ['active']
+search_fields['price','name','category'] # during what search 
+fields=['name','category']
+```
+
+
+
 
 
 
