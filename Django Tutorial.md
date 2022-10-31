@@ -1519,11 +1519,11 @@ search_fields['price','name','category'] # during what search
 fields=['name','category']
 ```
 
+----------------------------------------------------------------------
 
+'to save our usings library's give this  'pip freeze > requiremnts.txt''
 
-
-
-
+--------------------------------------------------------------------------
 
 
 
